@@ -1,28 +1,32 @@
 {
-  "AWSEBDockerrunversion": 2,
+  "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
       "name": "client",
       "image": "mohangarapatidoc/multi-client",
       "hostname": "client",
+      "memory": 128,
       "essential": false
     },
     {
       "name": "server",
       "image": "mohangarapatidoc/multi-server",
       "hostname": "api",
+      "memory": 128,
       "essential": false    
     },
     {
       "name": "worker",
       "image": "mohangarapatidoc/multi-worker",
       "hostname": "worker",
+      "memory": 128,
       "essential": false    
     },
     {
       "name": "nginx",
       "image": "mohangarapatidoc/multi-nginx",
       "hostname": "nginx",
+      "memory": 128,
       "essential": true,
       "portMappings": [
         {
