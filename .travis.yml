@@ -1,0 +1,26 @@
+sudo: required
+services: 
+  - docker
+
+before_install: 
+  - docker build -t mohangarapatidoc/react-test -f ./client/Dockerfile.dev ./client 
+
+scripts:
+  - docker run mohangarapatidoc/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t mohangarapatidoc/multi-client ./client 
+  - docker build -t mohangarapatidoc/multi-nginx ./nginx
+  - docker build -t mohangarapatidoc/multi-server ./server
+  - docker build -t mohangarapatidoc/multi-worker ./worker
+  #docker login 
+  
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    
+  #take down and push docker 
+  - docker push mohangarapatidoc/multi-client
+  - docker push mohangarapatidoc/multi-nginx
+  - docker push mohangarapatidoc/multi-server
+  - docker push mohangarapatidoc/multi-worker
+
+  
